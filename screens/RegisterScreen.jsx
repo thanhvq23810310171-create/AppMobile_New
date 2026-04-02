@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   loginText: {
-    color: '#0066ff',
+    color: '#16a34a',
     fontSize: 14,
     fontWeight: '700',
   },

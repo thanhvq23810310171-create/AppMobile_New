@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import { useAuth } from '../context/AuthContext';
 
 export default function LoginScreen() {
   const router = useRouter();
+  const { login } = useAuth();
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -17,22 +19,15 @@ export default function LoginScreen() {
         <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
           {/* Header */}
           <View style={styles.header}>
-            <TouchableOpacity style={styles.backButton}>
-              <Ionicons name="arrow-back" size={24} color="#0066ff" />
-              <Text style={styles.timeText}>9:41</Text>
-            </TouchableOpacity>
-            <Text style={styles.brandTex}>SHOP</Text>
-            <View style={styles.rightIcons}>
-              <Ionicons name="cellular" size={16} color="#000" style={styles.statusIcon} />
-              <Ionicons name="wifi" size={16} color="#000" style={styles.statusIcon} />
-              <Ionicons name="battery-full" size={16} color="#000" style={styles.statusIcon} />
-            </View>
+            <View style={{ width: 60 }} />
+            <Text style={styles.brandText}>SHOP</Text>
+            <View style={{ width: 60 }} />
           </View>
 
           {/* Logo Section */}
           <View style={styles.logoSection}>
             <View style={styles.logoCircle}>
-              <Ionicons name="phone-portrait" size={32} color="#0066ff" />
+              <Ionicons name="phone-portrait" size={32} color="#16a34a" />
             </View>
             <Text style={styles.welcomeText}>Welcome To Shop</Text>
             <Text style={styles.subtitleText}>
@@ -44,7 +39,7 @@ export default function LoginScreen() {
           <View style={styles.formSection}>
             <Input
               label="EMAIL OR PHONE"
-              placeholder="vuquangthanh...@email.com"
+              placeholder="vuquangthanh...@gmail.com"
               leftIconName="person"
             />
             
@@ -59,7 +54,14 @@ export default function LoginScreen() {
               <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
             </TouchableOpacity>
 
-            <Button title="Login" onPress={() => {}} />
+            <Button title="Login" onPress={() => {
+              login();
+              if (router.canGoBack()) {
+                router.back();
+              } else {
+                router.push('/home');
+              }
+            }} />
 
             <View style={styles.registerContainer}>
               <Text style={styles.noAccountText}>Don't have an account? </Text>
@@ -94,34 +96,11 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     marginTop: Platform.OS === 'android' ? 24 : 0,
   },
-  backButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: 60,
-  },
-  timeText: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: '#000',
-    marginLeft: 4,
-    position: 'absolute',
-    left: 20,
-    top: -10,
-  },
   brandText: {
     fontSize: 20,
     fontWeight: '900',
     letterSpacing: 2,
     color: '#111827',
-  },
-  rightIcons: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: 60,
-    justifyContent: 'flex-end',
-  },
-  statusIcon: {
-    marginLeft: 4,
   },
   logoSection: {
     alignItems: 'center',
@@ -132,7 +111,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: '#eef4ff',
+    backgroundColor: '#dcfce7',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 24,
@@ -158,7 +137,7 @@ const styles = StyleSheet.create({
     marginTop: -8,
   },
   forgotPasswordText: {
-    color: '#0066ff',
+    color: '#16a34a',
     fontSize: 14,
     fontWeight: '700',
   },
@@ -173,7 +152,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   registerText: {
-    color: '#0066ff',
+    color: '#16a34a',
     fontSize: 14,
     fontWeight: '700',
   },
