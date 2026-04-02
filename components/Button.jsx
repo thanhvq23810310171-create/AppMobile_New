@@ -11,12 +11,12 @@ export default function Button({ title, onPress }) {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#0066ff',
+    backgroundColor: '#16a34a',
     paddingVertical: 16,
-    borderRadius: 24,
+    borderRadius: 4,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#0066ff',
+    shadowColor: '#16a34a',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,
